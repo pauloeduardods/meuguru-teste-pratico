@@ -114,6 +114,22 @@ class UserService {
       payload: { token },
     };
   }
+
+  public async delete(idToDelete: number):
+  Promise<ServiceResponse<Omit<IUser, 'password'> | ErrorMessage>> {
+    const userDeleted = await this.userModel.delete(idToDelete);
+    if (!userDeleted) {
+      return {
+        status: 'BadRequest',
+        payload: { message: 'User not deleted' },
+      };
+    }
+    const { id, name, email } = userDeleted;
+    return {
+      status: 'OK',
+      payload: { id, name, email },
+    };
+  }
 }
 
 export default new UserService();

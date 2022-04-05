@@ -69,6 +69,17 @@ class UserModel {
       return undefined;
     }
   }
+
+  public async delete(id: number): Promise<IUser | undefined> {
+    try {
+      const userDeleted = await this.prisma.user.delete({
+        where: { id },
+      });
+      return userDeleted;
+    } catch (_) {
+      return undefined;
+    }
+  }
 }
 
 export default UserModel;

@@ -12,6 +12,7 @@ class UserRoute {
     this.router.get('/', UserController.getAllUsers);
     this.router.put('/', AuthMiddleware, ValidationMiddleware.validateUpdateUser, UserController.update);
     this.router.patch('/', AuthMiddleware, ValidationMiddleware.validateUpdateUser, UserController.update);
+    this.router.delete('/', AuthMiddleware, UserController.delete);
   }
 }
 
