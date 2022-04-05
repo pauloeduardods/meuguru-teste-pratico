@@ -1,4 +1,5 @@
 import { GenerateToken } from '../auth/jwt';
+import { HashPassword, VerifyPassword } from '../auth/password';
 import UserModel from '../models/user';
 import { ErrorMessage, IUser, IUserLogin, ServiceResponse } from '../types';
 
@@ -46,7 +47,8 @@ class UserService {
         },
       };
     }
-    const userCreated = await this.userModel.create(user);
+    const newUser = { ...user, password: await HashPassword(user.password) };
+    const userCreated = await this.userModel.create(newUser);
     if (!userCreated) {
       return {
         status: 'BadRequest',
@@ -102,7 +104,7 @@ class UserService {
       };
     }
     const { id, name, email, password } = curUser;
-    if (password !== user.password) {
+    if (!await VerifyPassword(user.password, password)) {
       return {
         status: 'Unauthorized',
         payload: { message: 'Wrong password' },
