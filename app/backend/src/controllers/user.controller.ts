@@ -23,6 +23,17 @@ class UserController {
       next(error);
     }
   }
+
+  public static async update(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { name, email } = req.body;
+      const id = req.user?.id;
+      const response = await UserService.update(id as number, { name, email });
+      return res.status(HTTPStatusCode[response.status]).json(response.payload).end();
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default UserController;

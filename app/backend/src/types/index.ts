@@ -1,9 +1,12 @@
 import { IHTTPStatusCode } from '../helpers';
 
-export interface IUser {
-  id?: number;
+export interface IUserLogin {
   name: string;
   email: string;
+}
+
+export interface IUser extends IUserLogin {
+  id?: number;
   password: string;
 }
 

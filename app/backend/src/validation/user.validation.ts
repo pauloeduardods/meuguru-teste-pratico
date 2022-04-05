@@ -13,3 +13,8 @@ export const UserLoginSchema = Joi.object().keys({
   email,
   password,
 });
+
+export const UpdateUserSchema = Joi.object().keys({
+  name: Joi.string(),
+  email: Joi.string().email(),
+}).unknown(true);

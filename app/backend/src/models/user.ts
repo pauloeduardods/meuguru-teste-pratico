@@ -55,6 +55,20 @@ class UserModel {
     });
     return user;
   }
+
+  public async update(id: number, user: IUser): Promise<IUser | undefined> {
+    try {
+      const userUpdated = await this.prisma.user.update({
+        where: { id },
+        data: {
+          ...user,
+        },
+      });
+      return userUpdated;
+    } catch (_) {
+      return undefined;
+    }
+  }
 }
 
 export default UserModel;

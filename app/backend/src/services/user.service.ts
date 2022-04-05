@@ -1,5 +1,5 @@
 import UserModel from '../models/user';
-import { ErrorMessage, IUser, ServiceResponse } from '../types';
+import { ErrorMessage, IUser, IUserLogin, ServiceResponse } from '../types';
 
 class UserService {
   private userModel: UserModel;
@@ -45,6 +45,29 @@ class UserService {
     const { id, name, email } = userCreated;
     return {
       status: 'Created',
+      payload: { id, name, email },
+    };
+  }
+
+  public async update(idToUpdate: number, user: IUserLogin):
+  Promise<ServiceResponse<Omit<IUser, 'password'> | ErrorMessage>> {
+    const curUser = await this.userModel.findOne(idToUpdate);
+    if (!curUser) {
+      return {
+        status: 'NotFound',
+        payload: { message: 'User not found' },
+      };
+    }
+    const userUpdated = await this.userModel.update(idToUpdate, user as IUser);
+    if (!userUpdated) {
+      return {
+        status: 'BadRequest',
+        payload: { message: 'User not updated' },
+      };
+    }
+    const { id, name, email } = userUpdated;
+    return {
+      status: 'OK',
       payload: { id, name, email },
     };
   }
