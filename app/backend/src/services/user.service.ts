@@ -63,6 +63,15 @@ class UserService {
         payload: { message: 'User not found' },
       };
     }
+    const userEmail = await this.userModel.findOne(undefined, user.email);
+    if (userEmail) {
+      return {
+        status: 'Conflict',
+        payload: {
+          message: 'User with this email already exists',
+        },
+      };
+    }
     const userUpdated = await this.userModel.update(idToUpdate, user as IUser);
     if (!userUpdated) {
       return {
