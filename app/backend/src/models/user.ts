@@ -1,6 +1,11 @@
 import { PrismaClient } from '@prisma/client';
 import { IUser } from '../types';
 
+export interface IFilter {
+  email?: string;
+  name?: string;
+}
+
 class UserModel {
   private prisma: PrismaClient;
 
@@ -24,8 +29,17 @@ class UserModel {
     }
   }
 
-  public async findAll(skip = 0, take = 10): Promise<IUser[]> {
-    const users = await this.prisma.user.findMany({ skip, take });
+  public async findAll(filters: IFilter[], skip = 0, take = 10): Promise<IUser[]> {
+    const options = {
+      skip,
+      take,
+      where: {
+        AND: [
+          ...filters,
+        ],
+      },
+    };
+    const users = await this.prisma.user.findMany(options);
     return users;
   }
 

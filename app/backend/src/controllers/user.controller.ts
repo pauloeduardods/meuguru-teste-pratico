@@ -5,8 +5,9 @@ import UserService from '../services/user.service';
 class UserController {
   public static async getAllUsers(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { page } = req.query;
-      const response = await UserService.getAllUsers(page as string | number);
+      const { page, email, name } = req.query;
+      const response = await UserService
+        .getAllUsers(page as string | number, email as string, name as string);
       return res.status(HTTPStatusCode[response.status]).json(response.payload).end();
     } catch (error) {
       next(error);
