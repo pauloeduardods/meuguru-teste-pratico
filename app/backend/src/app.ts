@@ -13,7 +13,7 @@ class App {
     this.app.use(bodyParser.json());
     this.app.use(cors());
     this.config();
-    this.routes();
+    // this.routes();
   }
 
   private config(): void {
@@ -24,13 +24,12 @@ class App {
       res.header('Content-Type', 'application/json');
       next();
     };
-
     this.app.use(accessControl);
   }
 
-  private routes(): void {
-    console.log('routes', this);
-  }
+  // private routes(): void {
+  //   this.app.use('/login', UserController)
+  // }
 
   public start(PORT: string | number): void {
     this.app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
