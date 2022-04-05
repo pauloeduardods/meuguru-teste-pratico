@@ -2,6 +2,7 @@ import * as bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import dotenv from 'dotenv';
+import UserController from './controllers/user.controller';
 
 dotenv.config();
 
@@ -13,7 +14,7 @@ class App {
     this.app.use(bodyParser.json());
     this.app.use(cors());
     this.config();
-    // this.routes();
+    this.routes();
   }
 
   private config(): void {
@@ -27,9 +28,9 @@ class App {
     this.app.use(accessControl);
   }
 
-  // private routes(): void {
-  //   this.app.use('/login', UserController)
-  // }
+  private routes(): void {
+    this.app.use('/users', UserController.getAllUsers);
+  }
 
   public start(PORT: string | number): void {
     this.app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

@@ -20,8 +20,8 @@ class UserModel {
     return userCreated;
   }
 
-  public async findAll(): Promise<IUser[]> {
-    const users = await this.prisma.user.findMany();
+  public async findAll(skip = 0, take = 10): Promise<IUser[]> {
+    const users = await this.prisma.user.findMany({ skip, take });
     return users;
   }
 
