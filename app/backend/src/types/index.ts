@@ -1,13 +1,13 @@
 import { IHTTPStatusCode } from '../helpers';
 
 export interface IUserLogin {
-  name: string;
+  password: string;
   email: string;
 }
 
 export interface IUser extends IUserLogin {
   id?: number;
-  password: string;
+  name: string;
 }
 
 export interface ServiceResponse<T> {

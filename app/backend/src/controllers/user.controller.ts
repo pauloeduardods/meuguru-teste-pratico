@@ -34,6 +34,15 @@ class UserController {
       next(error);
     }
   }
+
+  public static async login(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const response = await UserService.login(req.body);
+      return res.status(HTTPStatusCode[response.status]).json(response.payload).end();
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default UserController;

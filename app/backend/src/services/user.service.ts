@@ -1,5 +1,10 @@
+import { GenerateToken } from '../auth/jwt';
 import UserModel from '../models/user';
 import { ErrorMessage, IUser, IUserLogin, ServiceResponse } from '../types';
+
+export interface IToken {
+  token: string;
+}
 
 class UserService {
   private userModel: UserModel;
@@ -49,7 +54,7 @@ class UserService {
     };
   }
 
-  public async update(idToUpdate: number, user: IUserLogin):
+  public async update(idToUpdate: number, user: Omit<IUser, 'password'>):
   Promise<ServiceResponse<Omit<IUser, 'password'> | ErrorMessage>> {
     const curUser = await this.userModel.findOne(idToUpdate);
     if (!curUser) {
@@ -69,6 +74,29 @@ class UserService {
     return {
       status: 'OK',
       payload: { id, name, email },
+    };
+  }
+
+  public async login(user: IUserLogin):
+  Promise<ServiceResponse<IToken | ErrorMessage>> {
+    const curUser = await this.userModel.findOne(undefined, user.email);
+    if (!curUser) {
+      return {
+        status: 'NotFound',
+        payload: { message: 'User not found' },
+      };
+    }
+    const { id, name, email, password } = curUser;
+    if (password !== user.password) {
+      return {
+        status: 'Unauthorized',
+        payload: { message: 'Wrong password' },
+      };
+    }
+    const token = GenerateToken({ id, name, email });
+    return {
+      status: 'OK',
+      payload: { token },
     };
   }
 }

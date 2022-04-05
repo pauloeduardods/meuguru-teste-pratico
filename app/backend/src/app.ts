@@ -3,6 +3,8 @@ import cors from 'cors';
 import express from 'express';
 import dotenv from 'dotenv';
 import UserRoute from './routes/user.route';
+import ValidationMiddleware from './middlewares/validations';
+import UserController from './controllers/user.controller';
 
 dotenv.config();
 
@@ -30,6 +32,7 @@ class App {
 
   private routes(): void {
     this.app.use('/users', new UserRoute().router);
+    this.app.post('/login', ValidationMiddleware.validateLogin, UserController.login);
   }
 
   public start(PORT: string | number): void {
