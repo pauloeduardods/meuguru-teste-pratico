@@ -13,19 +13,25 @@ class UserService {
     this.userModel = userModel;
   }
 
+  private static removePassword(user: IUser): Omit<IUser, 'password'> {
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword;
+  }
+
   public async getAllUsers(page?: number | string, email?: string, name?: string):
-  Promise<ServiceResponse<IUser[]>> {
-    const curPage = page && page > 0 ? parseInt(page.toString(), 10) : 1;
-    const users = await this.userModel.findAll([{ email }, { name }], (curPage - 1) * 10, 10);
+  Promise<ServiceResponse<Omit<IUser, 'password'>[]>> {
+    const curPage = ((page && page > 0 ? parseInt(page.toString(), 10) : 1) - 1) * 10;
+    const users = await this.userModel.findAll([{ email }, { name }], curPage, 10);
     if (users.length === 0) {
       return {
         status: 'NotFound',
         payload: [],
       };
     }
+    const usersWithoutPassword = users.map(UserService.removePassword);
     return {
       status: 'OK',
-      payload: users,
+      payload: usersWithoutPassword,
     };
   }
 
