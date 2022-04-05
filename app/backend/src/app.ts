@@ -2,7 +2,7 @@ import * as bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import dotenv from 'dotenv';
-import UserController from './controllers/user.controller';
+import UserRoute from './routes/user.route';
 
 dotenv.config();
 
@@ -29,7 +29,7 @@ class App {
   }
 
   private routes(): void {
-    this.app.use('/users', UserController.getAllUsers);
+    this.app.use('/users', new UserRoute().router);
   }
 
   public start(PORT: string | number): void {

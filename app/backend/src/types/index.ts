@@ -11,3 +11,7 @@ export interface ServiceResponse<T> {
   status: keyof IHTTPStatusCode;
   payload: T;
 }
+
+export interface ErrorMessage {
+  message: string;
+}

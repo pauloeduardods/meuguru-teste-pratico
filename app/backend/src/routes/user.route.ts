@@ -1,11 +1,13 @@
 import express from 'express';
 import UserController from '../controllers/user.controller';
+import ValidationMiddleware from '../middlewares/validations';
 
 class UserRoute {
-  private router: express.Router;
+  public router: express.Router;
 
   constructor(router = express.Router()) {
     this.router = router;
+    this.router.post('/', ValidationMiddleware.validateNewUser, UserController.create);
     this.router.get('/', UserController.getAllUsers);
   }
 }

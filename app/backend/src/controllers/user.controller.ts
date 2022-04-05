@@ -12,6 +12,16 @@ class UserController {
       next(error);
     }
   }
+
+  public static async create(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { name, email, password } = req.body;
+      const response = await UserService.create({ name, email, password });
+      return res.status(HTTPStatusCode[response.status]).json(response.payload).end();
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default UserController;

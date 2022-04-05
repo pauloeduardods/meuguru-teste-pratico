@@ -8,16 +8,20 @@ class UserModel {
     this.prisma = prisma;
   }
 
-  public async create(user: IUser): Promise<IUser> {
-    const { email, name, password } = user;
-    const userCreated = await this.prisma.user.create({
-      data: {
-        email,
-        name,
-        password,
-      },
-    });
-    return userCreated;
+  public async create(user: IUser): Promise<IUser | undefined> {
+    try {
+      const { email, name, password } = user;
+      const userCreated = await this.prisma.user.create({
+        data: {
+          email,
+          name,
+          password,
+        },
+      });
+      return userCreated;
+    } catch (_) {
+      return undefined;
+    }
   }
 
   public async findAll(skip = 0, take = 10): Promise<IUser[]> {

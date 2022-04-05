@@ -1,5 +1,5 @@
 import UserModel from '../models/user';
-import { IUser, ServiceResponse } from '../types';
+import { ErrorMessage, IUser, ServiceResponse } from '../types';
 
 class UserService {
   private userModel: UserModel;
@@ -20,6 +20,31 @@ class UserService {
     return {
       status: 'OK',
       payload: users,
+    };
+  }
+
+  public async create(user: IUser):
+  Promise<ServiceResponse<Omit<IUser, 'password'> | ErrorMessage>> {
+    const userEmail = await this.userModel.findOne(undefined, user.email);
+    if (userEmail) {
+      return {
+        status: 'Conflict',
+        payload: {
+          message: 'User with this email already exists',
+        },
+      };
+    }
+    const userCreated = await this.userModel.create(user);
+    if (!userCreated) {
+      return {
+        status: 'BadRequest',
+        payload: { message: 'User not created' },
+      };
+    }
+    const { id, name, email } = userCreated;
+    return {
+      status: 'Created',
+      payload: { id, name, email },
     };
   }
 }
