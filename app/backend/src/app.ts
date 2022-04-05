@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import UserRoute from './routes/user.route';
 import ValidationMiddleware from './middlewares/validations';
 import UserController from './controllers/user.controller';
+import ErrorMiddleware from './middlewares/error';
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ class App {
   private routes(): void {
     this.app.use('/users', new UserRoute().router);
     this.app.post('/login', ValidationMiddleware.validateLogin, UserController.login);
+    this.app.use(ErrorMiddleware);
   }
 
   public start(PORT: string | number): void {
