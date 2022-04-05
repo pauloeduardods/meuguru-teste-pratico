@@ -7,7 +7,6 @@ class ValidationMiddleware {
     const validation = UserSchema.validate(req.body);
     if (validation.error) {
       return res.status(HTTPStatusCode.BadRequest).json({
-        status: 'BadRequest',
         payload: validation.error.details[0].message,
       });
     }
@@ -18,7 +17,6 @@ class ValidationMiddleware {
     const validation = UpdateUserSchema.validate(req.body);
     if (validation.error) {
       return res.status(HTTPStatusCode.BadRequest).json({
-        status: 'BadRequest',
         payload: validation.error.details[0].message,
       });
     }
@@ -29,7 +27,6 @@ class ValidationMiddleware {
     const validation = UserLoginSchema.validate(req.body);
     if (validation.error) {
       return res.status(HTTPStatusCode.BadRequest).json({
-        status: 'BadRequest',
         payload: validation.error.details[0].message,
       });
     }
