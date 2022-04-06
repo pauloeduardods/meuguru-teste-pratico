@@ -10,7 +10,7 @@
 - [x] Rota PATCH /users para editar um pedaço do usuário
 - [x] Rota DELETE /users para deletar um usuário
 - [x] Middleware de autenticaçao, somente o usuario pode editar/excluir as informaçoes dele
-- [ ] Salvar a senha de maneira segura no banco de dados utilizando Argon2
+- [x] Salvar a senha de maneira segura no banco de dados utilizando Argon2
 
 ### Frontend
 
