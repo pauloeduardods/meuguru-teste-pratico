@@ -2,12 +2,16 @@
   "name": "meuguru-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/server.js",
+  "main": "./dist/src/server.js",
   "scripts": {
     "test": "mocha -r ts-node/register ./tests/*$NAME*.{test,spec}.ts -t 10000 --exit",
+    "prestart": "npx prisma generate && npx prisma migrate deploy && npx prisma db seed",
     "start": "npx tsc && node .",
     "lint": "eslint ./src --ext .ts",
-    "dev": "nodemon --watch \"./src/**\" --ext \"ts,js\" --exec \"ts-node src/server.ts\""
+    "dev": "nodemon --watch \"./src/**\" --ext \"ts,js\" --exec \"ts-node src/server.ts\"",
+    "migrate": "npx prisma migrate dev",
+    "seed": "npx prisma db seed",
+    "generate": "npx prisma generate"
   },
   "author": "",
   "license": "ISC",

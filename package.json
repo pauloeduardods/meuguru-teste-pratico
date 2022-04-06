@@ -1,0 +1,21 @@
+{
+  "name": "meuguru-teste-pratico",
+  "version": "1.0.0",
+  "description": "## Tasks",
+  "main": "index.js",
+  "scripts": {
+    "compose:up": "cd ./app && docker-compose up -d --build",
+    "compose:down": "cd ./app && docker-compose down",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pauloeduardods/meuguru-teste-pratico.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pauloeduardods/meuguru-teste-pratico/issues"
+  },
+  "homepage": "https://github.com/pauloeduardods/meuguru-teste-pratico#readme"
+}
