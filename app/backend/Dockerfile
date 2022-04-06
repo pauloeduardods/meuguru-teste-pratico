@@ -10,10 +10,6 @@ COPY . .
 
 EXPOSE 3001
 
-# RUN npx prisma generate
-
-ENTRYPOINT ["npm", "start"]
+CMD ["npm", "start"]
 
 EXPOSE ${PORT}
-
-# "prestart": "npx prisma generate && npx prisma migrate dev && npx prisma db seed",
