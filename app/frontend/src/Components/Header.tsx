@@ -109,6 +109,21 @@ function Header() {
                               <p className="text-base font-medium text-gray-100">{email || 'default-email@trybewallet.com'}</p>
                             </div>
                           </div>
+                          <div className="flex flex-col sm:flex-row justify-between">
+                            <Link
+                              to="/login/edit"
+                              className="w-full sm:w-5/12 my-2 sm:my-0 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-gray-900 bg-yellow-400 hover:bg-yellow-500"
+                            >
+                              Editar Usuario
+                            </Link>
+                            <button
+                              type="button"
+                              className="w-full sm:w-5/12 my-2 sm:my-0 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-gray-900 bg-red-600 hover:bg-red-700"
+                              onClick={deleteUser}
+                            >
+                              Deletar Usuario
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </Popover.Panel>
@@ -118,9 +133,13 @@ function Header() {
             </Popover>
           </Popover.Group>
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <Link to="/" className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-6 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-gray-900 bg-indigo-600 hover:bg-indigo-700">
+            <button
+              type="button"
+              onClick={logOut}
+              className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-6 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-gray-900 bg-indigo-600 hover:bg-indigo-700"
+            >
               Sair
-            </Link>
+            </button>
           </div>
         </div>
       </header>
@@ -172,12 +191,12 @@ function Header() {
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row justify-between">
-                <button
-                  type="button"
+                <Link
+                  to="/login/edit"
                   className="w-full sm:w-5/12 my-2 sm:my-0 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-gray-900 bg-yellow-400 hover:bg-yellow-500"
                 >
                   Editar Usuario
-                </button>
+                </Link>
                 <button
                   type="button"
                   className="w-full sm:w-5/12 my-2 sm:my-0 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-gray-900 bg-red-600 hover:bg-red-700"
