@@ -16,5 +16,6 @@
 ### Frontend
 
 - [x] Rota /login para um usuario logar
-- [ ] Rota /login/create para criar um usuário
+- [x] Rota /login/create para criar um usuário
+- [ ] Rota /user/edit para editar o usuário
 - [ ] Rota /users para consultar os usuarios (com paginaçao e filtros)
