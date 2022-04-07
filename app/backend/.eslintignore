@@ -1,2 +1,4 @@
 node_modules/
-__tests__/
+__tests__/**
+prisma/
+jest.config.js
