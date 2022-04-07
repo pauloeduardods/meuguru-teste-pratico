@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom'
 import fetchAxios from '../Service/api';
 import { IUser } from '../types';
 
@@ -18,6 +19,10 @@ function Home() {
       },
     }).then((res) => setUsers(res.data));
   }, [name, email, page]);
+
+  if (!localStorage.token) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <div>

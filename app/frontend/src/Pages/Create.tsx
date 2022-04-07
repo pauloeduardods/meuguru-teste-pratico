@@ -1,32 +1,42 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Navigate, Link,  } from 'react-router-dom';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import logo from '../Images/image.svg';
 import fetchAxios from '../Service/api';
 
-function Login() {
+function CreateUser(props: any) {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
       const result = await fetchAxios({
-        url: '/login',
+        url: '/users',
         method: 'POST',
         data: {
+          name,
           email,
           password,
         },
       });
-      const { token } = result.data;
-      localStorage.setItem('token', token);
+      if (result.status === 201) {
+        const { token } = result.data;
+        localStorage.setItem('token', token);
+        return setIsSuccess(true);
+      }
     } catch (error) {
       setIsError(true);
     }
   };
+
+  if (isSuccess) {
+    return <Navigate to="/home" />;
+  }
 
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-meuguru h-vh-100">
@@ -43,6 +53,23 @@ function Login() {
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
+              <label htmlFor="input-name" className="sr-only">
+                Nome
+              </label>
+              <input
+                id="input-name"
+                data-testid="input-name"
+                name="name"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+                type="text"
+                autoComplete="name"
+                value={name}
+                required
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-slate-300 focus:border-slate-500 focus:z-10 sm:text-sm"
+                placeholder="Nome"
+              />
+            </div>
+            <div>
               <label htmlFor="input-email" className="sr-only">
                 E-mail
               </label>
@@ -55,7 +82,7 @@ function Login() {
                 autoComplete="email"
                 value={email}
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-slate-300 focus:border-slate-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-slate-300 focus:border-slate-500 focus:z-10 sm:text-sm"
                 placeholder="E-mail"
               />
             </div>
@@ -92,10 +119,10 @@ function Login() {
         </form>
         <div>
           <p className="text-center text-sm text-gray-300">
-            Não tem uma conta?
+            Ja tem uma conta?
             {' '}
             <Link to="/login/register" className="text-indigo-500 hover:text-indigo-400 focus:outline-none focus:underline">
-              Cadastre-se
+              Entrar
             </Link>
           </p>
         </div>
@@ -104,4 +131,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default CreateUser;
