@@ -81,4 +81,77 @@ describe('Users', () => {
       expect(result.response.data).toEqual([]);
     });
   });
+
+  describe('POST /users', () => {
+    it('should return 201 and the user created', async () => {
+      const result = await AxiosClient.post('/users', {
+        name: 'Paulo Eduardo',
+        email: 'iceolatorgelado@gmail.com',
+        password: '1234567',
+      });
+      expect(result.status).toBe(201);
+      expect(result.data).toEqual({
+        id: expect.any(Number),
+        name: 'Paulo Eduardo',
+        email: 'iceolatorgelado@gmail.com'
+      });
+    });
+
+    it('should create the user in DB', async () => {
+      const result = await AxiosClient.post('/users', {
+        name: 'Paulo Eduardo',
+        email: 'iceolatorgelado@gmail.com',
+        password: '1234567',
+      });
+      expect(result.status).toBe(201);
+      expect(result.data).toEqual({
+        id: expect.any(Number),
+        name: 'Paulo Eduardo',
+        email: 'iceolatorgelado@gmail.com'
+      });
+      const user = await AxiosClient.get(`/users`, { params: { email: result.data.email } });
+      expect(user.status).toBe(200);
+      expect(user.data).toEqual([{
+        id: expect.any(Number),
+        name: 'Paulo Eduardo',
+        email: 'iceolatorgelado@gmail.com',
+      }]);
+    });
+
+    it('should return 400 Status if trying to create with invalid email', async () => {
+      const { response } = await AxiosClient.post('/users', {
+        name: 'Paulo Eduardo',
+        email: 'issoaquinaoeumemail',
+        password: '1234567',
+      }).catch(error => error);
+      expect(response.status).toBe(400);
+      expect(response.data).toEqual({
+        message: "\"email\" must be a valid email"
+      });
+    });
+
+    it('should return 400 Status if trying to create with password with len 5', async () => {
+      const { response } = await AxiosClient.post('/users', {
+        name: 'Paulo Eduardo',
+        email: 'iceolatorgelado@gmail.com',
+        password: '12345',
+      }).catch(error => error);
+      expect(response.status).toBe(400);
+      expect(response.data).toEqual({
+        message: "\"password\" length must be at least 6 characters long"
+      });
+    });
+
+    it('should return 409 Status if trying to create with existing email', async () => {
+      const { response } = await AxiosClient.post('/users', {
+        name: 'Paulo Eduardo',
+        email: 'pauloeduardods@email.com',
+        password: '123456',
+      }).catch(error => error);
+      expect(response.status).toBe(409);
+      expect(response.data).toEqual({
+        message: "User with this email already exists"
+      });
+    });
+  });
 });
