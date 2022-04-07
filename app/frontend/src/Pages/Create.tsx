@@ -48,7 +48,7 @@ function CreateUser() {
             src={logo}
             alt="Logo"
           />
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-100">Login</h2>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-100">Criar Usuário</h2>
         </div>
         <form className="mt-8 space-y-10" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" defaultValue="true" />
