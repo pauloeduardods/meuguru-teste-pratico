@@ -36,7 +36,7 @@ function Login() {
 
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-meuguru h-vh-100">
-      <div className="max-w-md w-full space-y-8 sm:border-solid sm:border-slate-700 bg-slate-900 sm:p-3 sm:border-2 sm:rounded-xl sm:shadow-md">
+      <div className="max-w-md w-full space-y-8 border-solid border-slate-700 bg-slate-900 p-3 border-2 rounded-xl shadow-md">
         <div className="relative mt-3">
           <img
             className="mx-auto h-12 w-auto"
