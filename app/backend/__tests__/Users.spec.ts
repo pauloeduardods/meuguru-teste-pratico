@@ -29,17 +29,18 @@ const usersMock = [
   { id: 3, email: 'mahmoud@prisma.io', name: 'Mahmoud' }
 ];
 
+const prisma = new PrismaClient();
 
 describe('Users', () => {
   jest.setTimeout(30000);
   beforeEach(async () => {
+    await prisma.user.deleteMany({});
     await exec('npm run migrate');
     await exec('npm run seed');
   });
-  afterEach(async () => {
-    const prisma = new PrismaClient();
-    await prisma.user.deleteMany({});
-  });
+  // afterEach(async () => {
+  //   await prisma.user.deleteMany({});
+  // });
   describe('GET /users', () => {
     it('should return 10 users with no query params', async () => {
       const result = await AxiosClient.get('/users');

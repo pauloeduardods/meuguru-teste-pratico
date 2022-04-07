@@ -92,13 +92,12 @@ const userData = [
 ];
 
 async function main() {
-  const arrPromise = userData.map(async (user) =>
-    prisma.user.create({
-      data: user,
-    }));
-  return Promise.all(arrPromise);
+  for (let i = 0; i < userData.length; i += 1) {
+    await prisma.user.create({
+      data: userData[i],
+    });
+  }
 }
-prisma.user.deleteMany({});
 
 main()
   .catch((e) => {
