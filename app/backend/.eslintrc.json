@@ -27,6 +27,7 @@
     "no-underscore-dangle": "off",
     "no-console": "off",
     "camelcase": "warn",
+    "mocha/no-mocha-arrows": "Off",
     "arrow-parens": [
       2,
       "always"
