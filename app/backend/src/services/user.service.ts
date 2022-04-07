@@ -56,9 +56,10 @@ class UserService {
       };
     }
     const { id, name, email } = userCreated;
+    const token = GenerateToken({ id, name, email });
     return {
       status: 'Created',
-      payload: { id, name, email },
+      payload: { id, name, email, token },
     };
   }
 

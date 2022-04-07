@@ -8,6 +8,7 @@ export interface IUserLogin {
 export interface IUser extends IUserLogin {
   id?: number;
   name: string;
+  token?: string;
 }
 
 export interface ServiceResponse<T> {
