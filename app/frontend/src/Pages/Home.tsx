@@ -8,6 +8,7 @@ function Home() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [name, setName] = useState<string>();
   const [email, setEmail] = useState<string>();
+  // eslint-disable-next-line no-unused-vars
   const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
