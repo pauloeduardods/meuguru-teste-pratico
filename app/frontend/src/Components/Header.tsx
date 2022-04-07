@@ -9,6 +9,7 @@ import {
 } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import logo from '../Images/image.svg';
+import FetchAxios from '../Service/api';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -24,6 +25,21 @@ function Header() {
     setEmail('');
     setName('');
     setLoggedIn(false);
+  };
+
+  const deleteUser = () => {
+    const response = FetchAxios({
+      url: '/users',
+      method: 'DELETE',
+      headers: {
+        Authorization: localStorage.getItem('token') as string,
+      },
+    });
+    response.then((res) => {
+      if (res.status === 200) {
+        logOut();
+      }
+    });
   };
 
   if (!loggedIn) {
@@ -154,6 +170,21 @@ function Header() {
                   <MailIcon className="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" />
                   <span className="ml-3 text-base font-medium text-gray-100">{email || 'default-email@trybewallet.com'}</span>
                 </div>
+              </div>
+              <div className="flex flex-col sm:flex-row justify-between">
+                <button
+                  type="button"
+                  className="w-full sm:w-5/12 my-2 sm:my-0 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-gray-900 bg-yellow-400 hover:bg-yellow-500"
+                >
+                  Editar Usuario
+                </button>
+                <button
+                  type="button"
+                  className="w-full sm:w-5/12 my-2 sm:my-0 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-gray-900 bg-red-600 hover:bg-red-700"
+                  onClick={deleteUser}
+                >
+                  Deletar Usuario
+                </button>
               </div>
               <div>
                 <button
