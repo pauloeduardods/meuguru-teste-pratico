@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import logo from '../Images/image.svg';
-import fetchAxios from '../Service/api';
+import FetchAxios from '../Service/api';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      const result = await fetchAxios({
+      const result = await FetchAxios({
         url: '/login',
         method: 'POST',
         data: {
@@ -23,10 +24,15 @@ function Login() {
       });
       const { token } = result.data;
       localStorage.setItem('token', token);
+      setIsSuccess(true);
     } catch (error) {
       setIsError(true);
     }
   };
+
+  if (isSuccess) {
+    return <Link to="/" />;
+  }
 
   return (
     <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-meuguru h-vh-100">

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Navigate, Link,  } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import logo from '../Images/image.svg';
-import fetchAxios from '../Service/api';
+import FetchAxios from '../Service/api';
 
-function CreateUser(props: any) {
+function CreateUser() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,7 +15,7 @@ function CreateUser(props: any) {
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      const result = await fetchAxios({
+      const result = await FetchAxios({
         url: '/users',
         method: 'POST',
         data: {
@@ -27,7 +27,8 @@ function CreateUser(props: any) {
       if (result.status === 201) {
         const { token } = result.data;
         localStorage.setItem('token', token);
-        return setIsSuccess(true);
+        setIsSuccess(true);
+        return;
       }
     } catch (error) {
       setIsError(true);
@@ -35,7 +36,7 @@ function CreateUser(props: any) {
   };
 
   if (isSuccess) {
-    return <Navigate to="/home" />;
+    return <Navigate to="/" />;
   }
 
   return (
