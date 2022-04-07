@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import logo from '../Images/image.svg';
 import FetchAxios from '../Service/api';
@@ -31,7 +31,7 @@ function Login() {
   };
 
   if (isSuccess) {
-    return <Link to="/" />;
+    return <Navigate to="/" />;
   }
 
   return (

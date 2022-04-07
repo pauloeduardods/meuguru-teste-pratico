@@ -122,7 +122,7 @@ function CreateUser() {
           <p className="text-center text-sm text-gray-300">
             Ja tem uma conta?
             {' '}
-            <Link to="/login/register" className="text-indigo-500 hover:text-indigo-400 focus:outline-none focus:underline">
+            <Link to="/login" className="text-indigo-500 hover:text-indigo-400 focus:outline-none focus:underline">
               Entrar
             </Link>
           </p>
