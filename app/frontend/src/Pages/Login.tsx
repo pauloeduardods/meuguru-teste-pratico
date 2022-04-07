@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 // import { Link } from 'react-router-dom';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import logo from '../Images/image.svg';
+import fetchAxios from '../Service/api';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -12,17 +13,15 @@ function Login() {
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      const result = await fetch(`${process.env.REACT_APP_BASE_URL}/login`, {
+      const result = await fetchAxios({
+        url: '/login',
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+        data: {
           email,
           password,
-        }),
+        },
       });
-      const { token } = await result.json();
+      const { token } = result.data;
       localStorage.setItem('token', token);
     } catch (error) {
       setIsError(true);
