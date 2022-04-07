@@ -3,9 +3,8 @@ import cors from 'cors';
 import express from 'express';
 import dotenv from 'dotenv';
 import UserRoute from './routes/user.route';
-import ValidationMiddleware from './middlewares/validations';
-import UserController from './controllers/user.controller';
 import ErrorMiddleware from './middlewares/error';
+import LoginRouter from './routes/login.route';
 
 dotenv.config();
 
@@ -33,7 +32,7 @@ class App {
 
   private routes(): void {
     this.app.use('/users', new UserRoute().router);
-    this.app.post('/login', ValidationMiddleware.validateLogin, UserController.login);
+    this.app.use('/login', new LoginRouter().router);
     this.app.use(ErrorMiddleware);
   }
 

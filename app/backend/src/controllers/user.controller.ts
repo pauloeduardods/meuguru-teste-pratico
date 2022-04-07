@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { HTTPStatusCode } from '../helpers';
 import UserService from '../services/user.service';
+import { IUser } from '../types';
 
 class UserController {
   public static async getAllUsers(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -49,6 +50,22 @@ class UserController {
       const id = req.user?.id;
       const response = await UserService.delete(id as number);
       return res.status(HTTPStatusCode[response.status]).json(response.payload).end();
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public static async validateUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { user } = req;
+      const { id, name, email } = user as Omit<IUser, 'password'>;
+      if (!id || !email || !name) {
+        return res.status(HTTPStatusCode.Unauthorized).json({
+          status: 'error',
+          message: 'Unauthorized',
+        }).end();
+      }
+      return res.status(HTTPStatusCode.OK).json({ id, email, name }).end();
     } catch (error) {
       next(error);
     }
