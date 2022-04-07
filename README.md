@@ -9,6 +9,7 @@
 - [x] Rota PUT /users para editar usuário
 - [x] Rota PATCH /users para editar um pedaço do usuário
 - [x] Rota DELETE /users para deletar um usuário
+- [x] Rota POST /login para conseguir o token de autenticação
 - [x] Middleware de autenticaçao, somente o usuario pode editar/excluir as informaçoes dele
 - [x] Salvar a senha de maneira segura no banco de dados utilizando Argon2
 
