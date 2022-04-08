@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { Link, Navigate } from 'react-router-dom';
 import {
@@ -27,6 +27,25 @@ function Header() {
     setLoggedIn(false);
   };
 
+  const getUser = async () => {
+    try {
+      const result = await FetchAxios({
+        url: '/login/validate',
+        method: 'POST',
+        headers: {
+          Authorization: localStorage.getItem('token') as string,
+        },
+      });
+      if (result.status === 200) {
+        setEmail(result.data.email);
+        setName(result.data.name);
+        setLoggedIn(true);
+      }
+    } catch (error) {
+      setLoggedIn(false);
+    }
+  };
+
   const deleteUser = () => {
     const response = FetchAxios({
       url: '/users',
@@ -41,6 +60,14 @@ function Header() {
       }
     });
   };
+
+  useEffect(() => {
+    const { token } = localStorage;
+    if (!token) {
+      setLoggedIn(false);
+    }
+    getUser();
+  }, []);
 
   if (!loggedIn) {
     return <Navigate to="/login" />;
