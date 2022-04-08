@@ -7,6 +7,8 @@ export interface IToken {
   token: string;
 }
 
+const userNotFound = 'User not found';
+
 class UserService {
   private userModel: UserModel;
 
@@ -69,11 +71,11 @@ class UserService {
     if (!curUser) {
       return {
         status: 'NotFound',
-        payload: { message: 'User not found' },
+        payload: { message: userNotFound },
       };
     }
     const userEmail = await this.userModel.findOne(undefined, user.email);
-    if (userEmail) {
+    if (userEmail && user.email !== curUser.email) {
       return {
         status: 'Conflict',
         payload: {
@@ -101,7 +103,7 @@ class UserService {
     if (!curUser) {
       return {
         status: 'NotFound',
-        payload: { message: 'User not found' },
+        payload: { message: userNotFound },
       };
     }
     const { id, name, email, password } = curUser;
@@ -131,6 +133,22 @@ class UserService {
     return {
       status: 'OK',
       payload: { id, name, email },
+    };
+  }
+
+  public async getUserById(id: number):
+  Promise<ServiceResponse<Omit<IUser, 'password'> | ErrorMessage>> {
+    const user = await this.userModel.findOne(id);
+    if (!user) {
+      return {
+        status: 'NotFound',
+        payload: { message: userNotFound },
+      };
+    }
+    const userWithoutPassword = UserService.removePassword(user);
+    return {
+      status: 'OK',
+      payload: userWithoutPassword,
     };
   }
 }

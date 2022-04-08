@@ -65,7 +65,8 @@ class UserController {
           message: 'Unauthorized',
         }).end();
       }
-      return res.status(HTTPStatusCode.OK).json({ id, email, name }).end();
+      const curUser = await UserService.getUserById(id);
+      return res.status(HTTPStatusCode[curUser.status]).json(curUser.payload).end();
     } catch (error) {
       next(error);
     }
