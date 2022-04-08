@@ -1,7 +1,7 @@
 # MeuGuru Teste Pratico
 
-![HOME](https://github.com/pauloeduardods/meuguru-teste-pratico/blob/main/images/home.png?raw=true))
-![LOGIN](https://github.com/pauloeduardods/meuguru-teste-pratico/blob/main/images/login.png?raw=true))
+![HOME](https://github.com/pauloeduardods/meuguru-teste-pratico/blob/main/images/home.png?raw=true)
+![LOGIN](https://github.com/pauloeduardods/meuguru-teste-pratico/blob/main/images/login.png?raw=true)
 ## Contexto
 
 O projeto consistia em fazer uma aplicação Full-Stack, onde podemos ler, filtrar, editar e excluir usuarios
