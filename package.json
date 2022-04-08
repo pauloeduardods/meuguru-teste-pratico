@@ -6,7 +6,8 @@
   "scripts": {
     "compose:up": "cd ./app && docker-compose up -d --build",
     "compose:down": "cd ./app && docker-compose down",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "cd ./app/backend && npm run dev &",
+    "test": "(cd ./app/backend && npm run test && killall node)"
   },
   "repository": {
     "type": "git",

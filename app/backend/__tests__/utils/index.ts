@@ -1,9 +1,14 @@
 import ChildProcess from 'child_process';
 import Axios from 'axios';
 import QueryString from 'qs';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const PORT = process.env.PORT || 3001;
 
 const AxiosClient = Axios.create({
-  baseURL: 'http://localhost:3001',
+  baseURL: `http://localhost:${PORT}`,
   paramsSerializer: (params: any) => QueryString.stringify(params, { arrayFormat: 'repeat' }),
   timeout: 1000,
   headers: {
