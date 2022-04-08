@@ -129,7 +129,7 @@ function Edit() {
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <LockClosedIcon className="h-5 w-5 text-violet-200 group-hover:text-violet-100" aria-hidden="true" />
               </span>
-              Entrar
+              Editar
             </button>
           </div>
         </form>
