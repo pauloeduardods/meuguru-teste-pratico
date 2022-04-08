@@ -19,3 +19,9 @@
 - [x] Rota /login/create para criar um usuário
 - [ ] Rota /user/edit para editar o usuário
 - [ ] Rota /users para consultar os usuarios (com paginaçao e filtros)
+- [ ] Mudar o nome da pagina
+- [ ] Mudar o logo
+
+### Geral
+
+- [ ] Fazer o README.md
