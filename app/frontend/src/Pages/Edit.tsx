@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import logo from '../Images/image.svg';
@@ -11,6 +11,25 @@ function Edit() {
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  const getUser = async () => {
+    try {
+      const result = await FetchAxios({
+        url: '/login/validate',
+        method: 'POST',
+        headers: {
+          Authorization: localStorage.getItem('token') as string,
+        },
+      });
+      if (result.status === 200) {
+        setEmail(result.data.email);
+        setName(result.data.name);
+        setIsError(false);
+      }
+    } catch (error) {
+      setIsError(true);
+    }
+  };
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     try {
@@ -38,6 +57,10 @@ function Edit() {
       setIsError(true);
     }
   };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   if (!localStorage.getItem('token') || isError) {
     return <Navigate to="/login" />;
