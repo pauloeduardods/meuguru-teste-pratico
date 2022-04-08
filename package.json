@@ -6,8 +6,12 @@
   "scripts": {
     "compose:up": "cd ./app && docker-compose up -d --build",
     "compose:down": "cd ./app && docker-compose down",
-    "pretest": "cd ./app/backend && npm run dev &",
-    "test": "(cd ./app/backend && npm run test && killall node)"
+    "pretest": "cd ./app/backend && npm start &",
+    "test": "(cd ./app/backend && sleep 15 && npm run test && killall node)",
+    "prestart": "cd ./app/backend && npm run start &",
+    "start": "cd ./app/frontend && npm run start",
+    "install": "cd ./app/backend && npm install && cd ../frontend && npm install",
+    "seed": "cd ./app/backend && npm run seed"
   },
   "repository": {
     "type": "git",
