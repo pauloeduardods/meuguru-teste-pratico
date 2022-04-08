@@ -1,27 +1,51 @@
-# MeuGuru teste prático
+# MeuGuru Teste Pratico
 
-## Tasks
+![HOME](https://github.com/pauloeduardods/meuguru-teste-pratico/blob/main/images/home.png?raw=true))
+![LOGIN](https://github.com/pauloeduardods/meuguru-teste-pratico/blob/main/images/login.png?raw=true))
+## Contexto
 
-### Backend
+O projeto consistia em fazer uma aplicação Full-Stack, onde podemos ler, filtrar, editar e excluir usuarios
 
-- [x] Rota GET /users com opção para filtrar pelo nome ou e-mail
-- [x] Rota POST /users para adicionar novo usuario
-- [x] Rota PUT /users para editar usuário
-- [x] Rota PATCH /users para editar um pedaço do usuário
-- [x] Rota DELETE /users para deletar um usuário
-- [x] Rota POST /login para conseguir o token de autenticação
-- [x] Middleware de autenticaçao, somente o usuario pode editar/excluir as informaçoes dele
-- [x] Salvar a senha de maneira segura no banco de dados utilizando Argon2
+Apenas o usuario logado pode editar ou exclui-lo.
+
+## Tecnologias usadas
 
 ### Frontend
+* Typescript
+* ReactJS
+* TailwindCSS
 
-- [x] Rota /login para um usuario logar
-- [x] Rota /login/create para criar um usuário
-- [ ] Rota /user/edit para editar o usuário
-- [ ] Rota /users para consultar os usuarios (com paginaçao e filtros)
-- [ ] Mudar o nome da pagina
-- [ ] Mudar o logo
+### Backend
+* Express
+* PostgreSQL
+* Prisma
+* JWT
+* Argon2
 
-### Geral
+## Executando a aplicação
 
-- [ ] Fazer o README.md
+### Com Docker
+
+> :warning: É necessario ter o Docker e o Docker-compose instalados para conseguir rodar com docker
+
+- Na pasta raiz do projeto rode o comando `npm run compose:up`
+
+- O site vai estar disponivel em [http://localhost:8080](http://localhost:8080)
+
+- E para parar basta rodar o comando `npm run compose:down`
+
+### Com npm
+
+> :warning: É necessario estar com o PostgreSQL rodando e configurar os `.env` dentro das pastas `/app/backend` e `/app/frontend`, use as ambientes de variaveis que estão dentro de `.env.example` como exemplo
+
+- Na pasta raiz rode `npm install`
+
+- Depois rode `npm start` 
+
+- O site vai estar disponivel em [http://localhost:3000](http://localhost:3000)
+
+## Executar os testes
+
+> Foi testado apenas o backend
+
+- Para rodar os testes rode `npm test` na raiz do projeto
